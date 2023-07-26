@@ -2,15 +2,31 @@ package com.company;
 import java.util.Iterator;
 import java.util.Stack;
 
+
 public class BST<K extends Comparable<K>, V> implements Iterable<BST<K, V>.BSTEntry> {
-    private Node root;
     private int size;
+    private Node root;
 
     public BST() {
-        root = null;
         size = 0;
     }
 
+    public boolean contains (K key ) {
+        return contains(root, key);
+    }
+    private boolean contains(Node node, K key) {
+        if (node == null) {
+            return false;
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
+            return contains(node.left, key);
+        } else if (cmp > 0) {
+            return contains(node.right, key);
+        } else {
+            return true;
+        }
+    }
     public void put(K key, V value) {
         root = put(root, key, value);
     }
